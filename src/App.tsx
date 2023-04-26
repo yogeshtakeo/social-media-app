@@ -4,7 +4,7 @@ import axios from "axios";
 import { Alert, Button, Modal } from "flowbite-react";
 
 function App() {
-  const [show, setShow] = useState(false);
+  const [show, setShow] = useState<boolean>(false);
   const fetchData = async () => {
     const response = await axios.get("http://localhost:8000/posts");
     console.log(response.data);
