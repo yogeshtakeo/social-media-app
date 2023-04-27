@@ -1,13 +1,19 @@
 import React, { useEffect, useState } from "react";
 import "./App.css";
 import axios from "axios";
-import { Alert, Button, Modal } from "flowbite-react";
+import { Alert, Button, Modal, Card } from "flowbite-react";
 
 function App() {
   const [show, setShow] = useState(false);
+  const [posts, setPosts] = useState([]);
+
   const fetchData = async () => {
-    const response = await axios.get("http://localhost:8000/posts");
-    console.log(response.data);
+    try {
+      const response = await axios.get("http://localhost:8000/posts");
+      setPosts(response.data);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   useEffect(() => {
@@ -21,19 +27,19 @@ function App() {
         <Modal show={show} onClose={() => setShow(false)}>
           <Modal.Header>Terms of Service</Modal.Header>
           <Modal.Body>
-            <div className="space-y-6">
-              <p className="text-base leading-relaxed text-gray-500 dark:text-gray-400">
-                With less than a month to go before the European Union enacts
-                new consumer privacy laws for its citizens, companies around the
-                world are updating their terms of service agreements to comply.
-              </p>
-              <p className="text-base leading-relaxed text-gray-500 dark:text-gray-400">
-                The European Union’s General Data Protection Regulation
-                (G.D.P.R.) goes into effect on May 25 and is meant to ensure a
-                common set of data rights in the European Union. It requires
-                organizations to notify users as soon as possible of high-risk
-                data breaches that could personally affect them.
-              </p>
+            <div className="max-w-sm">
+              <Card
+                horizontal={true}
+                imgSrc="https://flowbite.com/docs/images/blog/image-4.jpg"
+              >
+                <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+                  Noteworthy technology acquisitions 2021
+                </h5>
+                <p className="font-normal text-gray-700 dark:text-gray-400">
+                  Here are the biggest enterprise technology acquisitions of
+                  2021 so far, in reverse chronological order.
+                </p>
+              </Card>
             </div>
           </Modal.Body>
           <Modal.Footer>
