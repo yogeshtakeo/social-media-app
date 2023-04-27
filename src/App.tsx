@@ -1,22 +1,32 @@
 import React, { useEffect, useState } from "react";
 import "./App.css";
-import axios from "axios";
-import { Alert, Button, Modal } from "flowbite-react";
+// import axios from "axios";
+import Navbar from "./Navbar";
+import Sidebar from "./Sidebar";
+import Page from "./Pagination";
+import CarouselTemplate from "./Carousel";
+
+// import { Alert, Button, Modal, Navbar } from "flowbite-react";
 
 function App() {
-  const [show, setShow] = useState(false);
-  const fetchData = async () => {
-    const response = await axios.get("http://localhost:8000/posts");
-    console.log(response.data);
-  };
+  // const [show, setShow] = useState(false);
+  // const fetchData = async () => {
+  //   const response = await axios.get("http://localhost:8000/posts");
+  //   console.log(response.data);
+  // };
 
-  useEffect(() => {
-    fetchData();
-  }, []);
+  // useEffect(() => {
+  //   fetchData();
+  // }, []);
 
   return (
     <>
-      <React.Fragment>
+      <Navbar />
+      <Sidebar />
+      <CarouselTemplate />
+      <Page />
+
+      {/* <React.Fragment>
         <Button onClick={() => setShow(true)}>Toggle modal</Button>
         <Modal show={show} onClose={() => setShow(false)}>
           <Modal.Header>Terms of Service</Modal.Header>
@@ -43,7 +53,7 @@ function App() {
             </Button>
           </Modal.Footer>
         </Modal>
-      </React.Fragment>
+      </React.Fragment> */}
     </>
   );
 }
