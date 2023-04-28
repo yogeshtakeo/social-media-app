@@ -31,10 +31,10 @@ const SidebarComponent = (): JSX.Element => {
             <Sidebar.Item href="#" icon={ShoppingBagIcon}>
               Products
             </Sidebar.Item>
-            <Sidebar.Item href="#" icon={ArrowRightCircleIcon}>
+            <Sidebar.Item href="/login" icon={ArrowRightCircleIcon}>
               Sign In
             </Sidebar.Item>
-            <Sidebar.Item href="#" icon={TableCellsIcon}>
+            <Sidebar.Item href="/register" icon={TableCellsIcon}>
               Sign Up
             </Sidebar.Item>
           </Sidebar.ItemGroup>
