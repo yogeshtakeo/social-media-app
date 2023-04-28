@@ -1,18 +1,38 @@
-import { TextInput, Label, Checkbox, Button } from "flowbite-react";
+import { TextInput, Label, Checkbox, Button, Spinner } from "flowbite-react";
+import { useDispatch, useSelector } from "react-redux";
+import { postRegister } from "../store/slices/UserSlice";
+import { useState } from "react";
 
 const RegisterComponent = (): JSX.Element => {
+  const loading = useSelector((state) => state.users.loading);
+  const dispatch = useDispatch();
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [repeatpassword, setRepeatpassword] = useState("");
+
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    if (password === repeatpassword) {
+      dispatch(postRegister({ username, password }));
+    } else {
+      alert("Password should match");
+    }
+  };
   return (
-    <form className="flex flex-col gap-4">
+    <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
       <div>
         <div className="mb-2 block">
-          <Label htmlFor="email2" value="Your email" />
+          <Label htmlFor="username" value="Your username" />
         </div>
         <TextInput
-          id="email2"
-          type="email"
-          placeholder="name@flowbite.com"
+          id="username"
+          type="text"
+          placeholder="Username"
           required={true}
           shadow={true}
+          onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+            setUsername(event.target.value)
+          }
         />
       </div>
       <div>
@@ -24,6 +44,9 @@ const RegisterComponent = (): JSX.Element => {
           type="password"
           required={true}
           shadow={true}
+          onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+            setPassword(event.target.value)
+          }
         />
       </div>
       <div>
@@ -35,6 +58,9 @@ const RegisterComponent = (): JSX.Element => {
           type="password"
           required={true}
           shadow={true}
+          onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+            setRepeatpassword(event.target.value);
+          }}
         />
       </div>
       <div className="flex items-center gap-2">
@@ -49,7 +75,15 @@ const RegisterComponent = (): JSX.Element => {
           </a>
         </Label>
       </div>
-      <Button type="submit">Register new account</Button>
+      {loading ? (
+        <Button>
+          <Spinner aria-label="Spinner button example" />
+          <span className="pl-3">Loading...</span>
+        </Button>
+      ) : (
+        <Button type="submit">Register new account</Button>
+      )}
+
       <Button outline>Already have an account</Button>
     </form>
   );
