@@ -2,6 +2,7 @@ import mongoose from "mongoose";
 import Posts from "../database/Schema/Posts.schema.js";
 
 const PostsCreator = (count) => ({
+  name: "Post " + count,
   description: "This is the post for the Title " + count,
   time: new Date().toString(),
   like: count,
