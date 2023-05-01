@@ -5,10 +5,11 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import AuthenticationLayer from "./HOC/AuthenticationLayer";
 import RedirectionLayer from "./HOC/RedirectionLayer";
+import LayoutComponent from "./HOC/LayoutLayer";
 
 function App(): JSX.Element {
   return (
-    <>
+    <LayoutComponent>
       <Routes>
         <Route
           path="/login"
@@ -35,7 +36,7 @@ function App(): JSX.Element {
           }
         />
       </Routes>
-    </>
+    </LayoutComponent>
   );
 }
 
