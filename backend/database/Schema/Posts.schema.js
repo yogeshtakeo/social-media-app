@@ -13,7 +13,7 @@ const PostSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
-  //   postedBy: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+  postedBy: { type: mongoose.Schema.Types.ObjectId, ref: "users" },
   //   comments: [{ body: "string", by: mongoose.Schema.Types.ObjectId }],
 });
 

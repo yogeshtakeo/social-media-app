@@ -4,12 +4,12 @@ import jwt from "jsonwebtoken";
 
 const generateToken = (user) => {
   return jwt.sign(user, process.env.SECRET_JSON_WEB_TOKEN, {
-    expiresIn: 60,
+    expiresIn: "1d",
   });
 };
 
-const verifyToken = (token, callback) => {
-  return jwt.verify(token, process.env.SECRET_JSON_WEB_TOKEN, callback);
+export const verifyToken = (token) => {
+  return jwt.verify(token, process.env.SECRET_JSON_WEB_TOKEN);
 };
 
 const encryptPassword = async (password) => {

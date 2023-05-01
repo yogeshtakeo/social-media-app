@@ -1,9 +1,11 @@
+import mongoose from "mongoose";
 import Posts from "../database/Schema/Posts.schema.js";
 
 const PostsCreator = (count) => ({
   description: "This is the post for the Title " + count,
   time: new Date().toString(),
   like: count,
+  postedBy: new mongoose.Types.ObjectId("6449531df44633c1aba0ee21"),
 });
 
 export const add_data = (req, res) => {
