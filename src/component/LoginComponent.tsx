@@ -1,12 +1,12 @@
 import { TextInput, Label, Checkbox, Button, Spinner } from "flowbite-react";
-import { ChangeEvent, ChangeEventHandler, useEffect, useState } from "react";
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { postLogin } from "../store/slices/UserSlice";
 import { useNavigate } from "react-router-dom";
 
 const LoginComponent = (): JSX.Element => {
   const navigation = useNavigate();
-  const { token, isLoggedIn, loading } = useSelector((state) => state.users);
+  const { loading } = useSelector((state) => state.users);
   const dispatch = useDispatch();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");

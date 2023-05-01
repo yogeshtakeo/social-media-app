@@ -19,7 +19,7 @@ const Home = (): JSX.Element => {
       <NavBarComponent />
       <div className="flex h-full gap-4">
         <SidebarComponent />
-        <div className="flex flex-wrap gap-12 overflow-y-auto h-full">
+        <div className=" ml-72 mt-12 flex flex-wrap gap-12 overflow-y-auto h-fit">
           {posts.isLoading ? (
             <Spinner />
           ) : (

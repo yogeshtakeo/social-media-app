@@ -5,7 +5,7 @@ import { useDispatch } from "react-redux";
 const NavBarComponent = (): JSX.Element => {
   const dispatch = useDispatch();
   return (
-    <Navbar fluid={true} rounded={true}>
+    <Navbar fluid={true} rounded={true} className="fixed w-full">
       <Navbar.Brand href="https://flowbite.com/">
         <img
           src="https://flowbite.com/docs/images/logo.svg"
