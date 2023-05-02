@@ -2,8 +2,10 @@ import { TextInput, Label, Checkbox, Button, Spinner } from "flowbite-react";
 import { useDispatch, useSelector } from "react-redux";
 import { postRegister } from "../store/slices/UserSlice";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const RegisterComponent = (): JSX.Element => {
+  const navigation = useNavigate();
   const loading = useSelector((state) => state.users.loading);
   const dispatch = useDispatch();
   const [username, setUsername] = useState("");
@@ -84,7 +86,9 @@ const RegisterComponent = (): JSX.Element => {
         <Button type="submit">Register new account</Button>
       )}
 
-      <Button outline>Already have an account</Button>
+      <Button outline onClick={() => navigation("/login")}>
+        Already have an account
+      </Button>
     </form>
   );
 };
