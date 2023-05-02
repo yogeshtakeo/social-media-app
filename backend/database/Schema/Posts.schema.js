@@ -1,6 +1,10 @@
 import mongoose from "mongoose";
 
 const PostSchema = new mongoose.Schema({
+  name: {
+    type: String,
+    required: true,
+  },
   description: {
     type: String,
     required: true,
@@ -13,7 +17,7 @@ const PostSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
-  //   postedBy: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+  postedBy: { type: mongoose.Schema.Types.ObjectId, ref: "users" },
   //   comments: [{ body: "string", by: mongoose.Schema.Types.ObjectId }],
 });
 
