@@ -54,7 +54,12 @@ const UserSlice = createSlice({
     isLoggedin: false,
     loading: false,
   },
-  reducers: {},
+  reducers: {
+    logout(state) {
+      state.token = "";
+      state.isLoggedin = false;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(postLogin.pending, (state) => {
@@ -65,11 +70,9 @@ const UserSlice = createSlice({
         const { error, data, message } = action.payload;
         if (!error) {
           state.token = data.token;
-          alert(message);
           state.isLoggedin = true;
         } else {
           console.log(action.payload);
-          alert(message);
           state.token = "";
           state.isLoggedin = false;
           state.loading = false;
@@ -85,13 +88,11 @@ const UserSlice = createSlice({
         state.loading = false;
         const { error, message } = action.payload;
         if (!error) {
-          alert(message);
           state.token = "";
           state.isLoggedin = false;
           state.loading = false;
         } else {
           console.log(action.payload);
-          alert(message);
           state.token = "";
           state.isLoggedin = false;
           state.loading = false;
@@ -103,4 +104,5 @@ const UserSlice = createSlice({
   },
 });
 
+export const { logout } = UserSlice.actions;
 export default UserSlice;

@@ -1,8 +1,11 @@
 import { Navbar, Dropdown, Avatar } from "flowbite-react";
+import { logout } from "../store/slices/UserSlice";
+import { useDispatch } from "react-redux";
 
 const NavBarComponent = (): JSX.Element => {
+  const dispatch = useDispatch();
   return (
-    <Navbar fluid={true} rounded={true}>
+    <Navbar fluid={true} rounded={true} className="fixed w-full">
       <Navbar.Brand href="https://flowbite.com/">
         <img
           src="https://flowbite.com/docs/images/logo.svg"
@@ -35,7 +38,9 @@ const NavBarComponent = (): JSX.Element => {
           <Dropdown.Item>Settings</Dropdown.Item>
           <Dropdown.Item>Earnings</Dropdown.Item>
           <Dropdown.Divider />
-          <Dropdown.Item>Sign out</Dropdown.Item>
+          <Dropdown.Item onClick={() => dispatch(logout())}>
+            Sign out
+          </Dropdown.Item>
         </Dropdown>
         <Navbar.Toggle />
       </div>
