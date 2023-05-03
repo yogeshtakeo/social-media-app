@@ -1,5 +1,4 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import axios from "axios";
 import axiosBase from "../../axiosBase";
 import { errorToast, successToast } from "./ToastSlice";
 
