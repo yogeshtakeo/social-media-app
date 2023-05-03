@@ -1,6 +1,7 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import axios from "axios";
-import axiosBase from "../../axiosBase";
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import axios from 'axios';
+import axiosBase from '../../axiosBase';
+import { errorToast } from './ToastSlice';
 
 export interface Data {
   token: string;
@@ -19,13 +20,16 @@ interface UserLoginType {
 }
 
 export const postLogin = createAsyncThunk(
-  "user/logingin",
-  async ({ username, password }: UserLoginType) => {
+  'user/logingin',
+  async ({ username, password }: UserLoginType, { dispatch }) => {
     try {
-      const response = await axiosBase().post("users/login", {
+      const response = await axiosBase().post('users/login', {
         username,
         password,
       });
+
+      const { error } = response.data;
+      if (error) dispatch(errorToast({message}));
       return response.data;
     } catch (error) {
       return error;
@@ -34,10 +38,10 @@ export const postLogin = createAsyncThunk(
 );
 
 export const postRegister = createAsyncThunk(
-  "user/registering",
+  'user/registering',
   async ({ username, password }: UserLoginType) => {
     try {
-      const response = await axiosBase().post("users/register", {
+      const response = await axiosBase().post('users/register', {
         username,
         password,
       });
@@ -48,15 +52,15 @@ export const postRegister = createAsyncThunk(
   }
 );
 const UserSlice = createSlice({
-  name: "user",
+  name: 'user',
   initialState: {
-    token: "",
+    token: '',
     isLoggedin: false,
     loading: false,
   },
   reducers: {
     logout(state) {
-      state.token = "";
+      state.token = '';
       state.isLoggedin = false;
     },
   },
@@ -73,7 +77,7 @@ const UserSlice = createSlice({
           state.isLoggedin = true;
         } else {
           console.log(action.payload);
-          state.token = "";
+          state.token = '';
           state.isLoggedin = false;
           state.loading = false;
         }
@@ -88,12 +92,12 @@ const UserSlice = createSlice({
         state.loading = false;
         const { error, message } = action.payload;
         if (!error) {
-          state.token = "";
+          state.token = '';
           state.isLoggedin = false;
           state.loading = false;
         } else {
           console.log(action.payload);
-          state.token = "";
+          state.token = '';
           state.isLoggedin = false;
           state.loading = false;
         }

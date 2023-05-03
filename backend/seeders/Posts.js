@@ -1,12 +1,12 @@
-import mongoose from "mongoose";
-import Posts from "../database/Schema/Posts.schema.js";
+import mongoose from 'mongoose';
+import Posts from '../database/Schema/Posts.schema.js';
 
 const PostsCreator = (count) => ({
-  name: "Post " + count,
-  description: "This is the post for the Title " + count,
+  name: 'Post ' + count,
+  description: 'This is the post for the Title ' + count,
   time: new Date().toString(),
   like: count,
-  postedBy: new mongoose.Types.ObjectId("6449531df44633c1aba0ee21"),
+  postedBy: new mongoose.Types.ObjectId('64514fb24e693769142fa7bd'),
 });
 
 export const add_data = (req, res) => {
@@ -14,7 +14,7 @@ export const add_data = (req, res) => {
     let post = PostsCreator(i);
     post = new Posts({ ...post });
     post.save().then((res) => {
-      console.log(" data inserted" + i);
+      console.log(' data inserted' + i);
     });
   }
 
