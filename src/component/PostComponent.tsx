@@ -29,6 +29,7 @@ const PostComponent = ({
           {description}
         </p>
       </Card>
+      
     </div>
   );
 };
