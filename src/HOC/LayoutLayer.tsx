@@ -2,8 +2,12 @@ import { useState } from "react";
 import FloatButton from "../component/FloatButton";
 import PostFormComponentModal from "../component/PostFormComponent";
 import ToastComponent from "../component/ToastComponent";
+import { useLocation } from "react-router";
 
-const LayoutComponent = (props: { children: any }) => {
+const LayoutComponent = (props) => {
+  const dontShowButtonOn = ["/login", "/register"];
+  const location = useLocation();
+  console.log(location);
   const [showPostForm, setShowPostForm] = useState(false);
 
   const onFormClose = () => {
@@ -14,12 +18,27 @@ const LayoutComponent = (props: { children: any }) => {
     setShowPostForm(true);
   };
 
+  const showButton = (): boolean => {
+    if (dontShowButtonOn.includes(location.pathname)) {
+      return false;
+    } else {
+      return true;
+    }
+  };
+
   return (
     <>
       {props.children}
-      <FloatButton onClick={onFLoatButtonClick} />
       <ToastComponent />
-      <PostFormComponentModal showModal={showPostForm} onClose={onFormClose} />
+      {showButton() && (
+        <>
+          <FloatButton onClick={onFLoatButtonClick} />
+          <PostFormComponentModal
+            showModal={showPostForm}
+            onClose={onFormClose}
+          />
+        </>
+      )}
     </>
   );
 };
