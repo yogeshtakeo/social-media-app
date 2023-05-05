@@ -12,7 +12,7 @@ import { ChartBarIcon } from "@heroicons/react/24/solid";
 
 const SidebarComponent = (): JSX.Element => {
   return (
-    <div className="h-full fixed ">
+    <div className="h-full fixed mt-12 ">
       <Sidebar aria-label="Sidebar with multi-level dropdown example">
         <Sidebar.Items>
           <Sidebar.ItemGroup>
