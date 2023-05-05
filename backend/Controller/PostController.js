@@ -13,22 +13,28 @@ export const GetAllPosts = async (req, res) => {
 };
 
 export const PostPosts = async (req, res) => {
+  console.log(req.body.name, req.body.description);
   try {
-    const { description } = req.body;
+    const { name, description } = req.body;
 
-    const post = new Posts({
+    let post = new Posts({
+      name,
       description,
       time: new Date().toString(),
       like: 0,
       postedBy: new Mongoose.Types.ObjectId(req.user.id),
     });
-    await post.save();
 
-    console.log(req.user);
+    await post.save();
+    const posted = await Posts.findOne({
+      name,
+      description,
+      postedBy: new Mongoose.Types.ObjectId(req.user.id),
+    }).populate("postedBy", "-password");
 
     res
       .status(200)
-      .send({ success: true, data: post, message: "Post Has been added." });
+      .send({ success: true, data: posted, message: "Post Has been added." });
   } catch (error) {
     res
       .status(500)

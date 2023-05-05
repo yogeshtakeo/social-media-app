@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import axios from "axios";
 import axiosBase from "../../axiosBase";
+import { errorToast, successToast } from "./ToastSlice";
 
 export interface Data {
   token: string;
@@ -20,31 +20,34 @@ interface UserLoginType {
 
 export const postLogin = createAsyncThunk(
   "user/logingin",
-  async ({ username, password }: UserLoginType) => {
-    try {
-      const response = await axiosBase().post("users/login", {
-        username,
-        password,
-      });
-      return response.data;
-    } catch (error) {
-      return error;
-    }
+  async ({ username, password }: UserLoginType, { dispatch }) => {
+    const response = await axiosBase().post("users/login", {
+      username,
+      password,
+    });
+
+    const { error, message } = response.data;
+
+    if (error) dispatch(errorToast({ message }));
+    else dispatch(successToast({ message }));
+
+    return response.data;
   }
 );
 
 export const postRegister = createAsyncThunk(
   "user/registering",
-  async ({ username, password }: UserLoginType) => {
-    try {
-      const response = await axiosBase().post("users/register", {
-        username,
-        password,
-      });
-      return response.data;
-    } catch (error) {
-      return error;
-    }
+  async ({ username, password }: UserLoginType, { dispatch }) => {
+    const response = await axiosBase().post("users/register", {
+      username,
+      password,
+    });
+    const { error, message } = response.data;
+
+    if (error) dispatch(errorToast({ message }));
+    else dispatch(successToast({ message }));
+
+    return response.data;
   }
 );
 const UserSlice = createSlice({
