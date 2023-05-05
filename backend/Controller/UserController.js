@@ -37,6 +37,7 @@ export const LoginPost = async (req, res) => {
     res.send({ error: true, status: 404, message: "User Not Found " });
     return;
   }
+
   const isSamePassword = await comparePassword(password, user.password);
 
   if (!isSamePassword) {
@@ -45,6 +46,7 @@ export const LoginPost = async (req, res) => {
       status: 404,
       message: "Login error, Password dont match",
     });
+    return;
   }
 
   const token = generateToken({
