@@ -6,6 +6,7 @@ import Register from "./pages/Register";
 import AuthenticationLayer from "./HOC/AuthenticationLayer";
 import RedirectionLayer from "./HOC/RedirectionLayer";
 import LayoutComponent from "./HOC/LayoutLayer";
+import Post from "./pages/Post";
 
 function App(): JSX.Element {
   return (
@@ -27,14 +28,8 @@ function App(): JSX.Element {
             </RedirectionLayer>
           }
         />
-        <Route
-          path="/"
-          element={
-            <AuthenticationLayer>
-              <Home />
-            </AuthenticationLayer>
-          }
-        />
+        <Route path="/" element={<Home />} />
+        <Route path="/posts/:id" element={<Post />} />
       </Routes>
     </LayoutComponent>
   );

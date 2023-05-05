@@ -5,6 +5,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getPosts } from "../store/slices/PostSlice";
 import { Spinner } from "flowbite-react";
+import AuthenticationLayer from "../HOC/AuthenticationLayer";
 
 const Home = (): JSX.Element => {
   const dispatch = useDispatch();
@@ -15,21 +16,11 @@ const Home = (): JSX.Element => {
   }, [dispatch]);
 
   return (
-    <div className="h-full w-full">
-      <NavBarComponent />
-      <div className="flex h-full gap-4">
-        <SidebarComponent />
-        <div className=" ml-72 mt-12 flex flex-wrap gap-12 overflow-y-auto h-fit">
-          {posts.isLoading ? (
-            <Spinner />
-          ) : (
-            posts.data.map((post, index) => (
-              <PostComponent key={index} {...post} />
-            ))
-          )}
-        </div>
-      </div>
-    </div>
+    <AuthenticationLayer isLoading={posts.isLoading}>
+      {posts.data.map((post, index) => (
+        <PostComponent key={index} {...post} />
+      ))}
+    </AuthenticationLayer>
   );
 };
 

@@ -1,4 +1,5 @@
 import { Avatar, Card } from "flowbite-react";
+import { useNavigate } from "react-router";
 
 const PostComponent = ({
   _id,
@@ -7,8 +8,13 @@ const PostComponent = ({
   description,
   name,
 }): JSX.Element => {
+  const navigation = useNavigate();
   return (
-    <div className="max-w-sm" id={_id}>
+    <div
+      className="max-w-sm"
+      id={_id}
+      onClick={() => navigation("./posts/" + _id)}
+    >
       <Card imgSrc="https://flowbite.com/docs/images/blog/image-1.jpg">
         <div className="flex justify-between place-items-center">
           <div className="flex place-items-center gap-1 ">

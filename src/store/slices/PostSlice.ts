@@ -34,7 +34,6 @@ export const getPosts = createAsyncThunk("posts/fetch", () => {
 export const postPosts = createAsyncThunk(
   "posts/post",
   ({ name, description }: IPost, { getState, dispatch }) => {
-    console.log(name, description);
     const token = getState().users.token;
 
     return axiosBase(token).post("posts", { name, description });

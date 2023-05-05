@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { Modal, TextInput, Button, Textarea } from "flowbite-react";
-import { useDispatch } from "react-redux";
+import { Modal, TextInput, Button, Textarea, Spinner } from "flowbite-react";
+import { useDispatch, useSelector } from "react-redux";
 import { addData, postPosts } from "../store/slices/PostSlice";
 
 interface IProps {
@@ -13,6 +13,7 @@ const PostFormComponentModal: React.FC<IProps> = ({ showModal, onClose }) => {
   const handleSubmit = (e: any, name: string, description: string) => {
     e.preventDefault();
     dispatch(postPosts({ name, description }));
+    onClose();
   };
   return (
     <Modal
@@ -31,13 +32,22 @@ const PostFormComponentModal: React.FC<IProps> = ({ showModal, onClose }) => {
 };
 
 const FormHandle = ({ handleSubmit, onClose }) => {
+  const loading = useSelector((state) => state.posts.isLoading);
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
+
+  const handleSubmitonSForm = (e) => {
+    e.preventDefault();
+    handleSubmit(e, name, description);
+    setName("");
+    setDescription("");
+    onClose();
+  };
 
   return (
     <>
       <form
-        onSubmit={(e) => handleSubmit(e, name, description)}
+        onSubmit={handleSubmitonSForm}
         className="space-y-6 px-6 pb-4 sm:pb-6 lg:px-8 xl:pb-8"
       >
         <h3 className="text-xl font-medium text-gray-900 dark:text-white">
@@ -45,6 +55,7 @@ const FormHandle = ({ handleSubmit, onClose }) => {
         </h3>
         <div>
           <TextInput
+            value={name}
             placeholder="Title of Post"
             required={true}
             onChange={(event) => setName(event.target.value)}
@@ -52,6 +63,7 @@ const FormHandle = ({ handleSubmit, onClose }) => {
         </div>
         <div>
           <Textarea
+            value={description}
             required={true}
             placeholder="Description of Post"
             onChange={(event) => setDescription(event.target.value)}
@@ -60,9 +72,17 @@ const FormHandle = ({ handleSubmit, onClose }) => {
           />
         </div>
         <div className="w-full flex justify-center gap-2">
-          <Button className="flex-1" type="submit">
-            Share
-          </Button>
+          {loading ? (
+            <Button>
+              <Spinner aria-label="flex-1 Spinner button example" />
+              <span className="pl-3">Loading...</span>
+            </Button>
+          ) : (
+            <Button className="flex-1" type="submit">
+              Share
+            </Button>
+          )}
+
           <Button className="flex-3" color="failure" onClick={onClose}>
             Cancel
           </Button>
